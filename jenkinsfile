@@ -1,0 +1,39 @@
+@Library('my-shared-lib') _
+
+pipeline {
+    agent any
+
+    stages {
+        stage('Clean') {
+            steps {
+                script {
+                    myPipelineUtils.cleanWorkspace()
+                }
+            }
+        }
+
+        stage('Clone') {
+            steps {
+                script {
+                    myPipelineUtils.cloneRepo('https://your-git-server/your-app-repo.git')
+                }
+            }
+        }
+
+        stage('Build') {
+            steps {
+                script {
+                    myPipelineUtils.buildApp()
+                }
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                script {
+                    myPipelineUtils.deployApp()
+                }
+            }
+        }
+    }
+}
